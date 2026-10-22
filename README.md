@@ -13,16 +13,12 @@ This is a separate database from Update All's Paprium MegaDrive entry (`MultiDat
 
 ## Use it on the MiSTer
 
-1. Put your GitHub repository slug in `github_repository.txt`, for example `yourname/paprium-koala-db`.
-2. Run `python generate_db.py` and push this repository to GitHub. The Actions workflow also rebuilds `dist/db.json` every day and whenever `main` changes.
-3. Copy `downloader_paprium_koala.ini` to `/media/fat/` on the SD card. It contains:
+1. Copy `downloader_paprium_koala.ini` to `/media/fat/` on the SD card. It contains:
 
 ```ini
 [thekoalakoa/Paprium_MiSTer]
-db_url = https://raw.githubusercontent.com/OWNER/paprium-koala-db/main/dist/db.json
+db_url = https://raw.githubusercontent.com/hgage2003/paprium-koala-db/main/dist/db.json
 ```
 
-4. Run Update All or the MiSTer Downloader. The section is not one of Update All's own databases, so later runs keep it.
-5. Launch **Paprium** from the Custom Cores menu.
-
-If a manual install left `_Console/Paprium.rbf` and `_Console/Paprium.mgl` on the card, delete those two files. This database does not replace them.
+2. Run Update All or the MiSTer Downloader. The section is not one of Update All's own databases, so later runs keep it.
+3. Launch **Paprium** from the Custom Cores menu.
