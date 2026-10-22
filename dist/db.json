@@ -1,0 +1,103 @@
+{
+  "archives": {
+    "release": {
+      "archive_file": {
+        "hash": "ea3396b39d3ca571516fbf9227b99d05",
+        "size": 1929372,
+        "url": "https://github.com/thekoalakoa/Paprium_MiSTer/releases/download/0.2.6/Paprium_MiSTer_0.2.6.zip"
+      },
+      "description": "Installing Paprium 0.2.6",
+      "extract": "selective",
+      "format": "zip",
+      "summary_inline": {
+        "files": {
+          "_Custom Cores/Cores/Paprium.rbf": {
+            "arc_at": "_Console/Paprium.rbf",
+            "arc_id": "release",
+            "hash": "86c1447eae06ae154a804d75ff0892b7",
+            "overwrite": true,
+            "reboot": true,
+            "size": 3912644,
+            "tags": [
+              0,
+              1,
+              2
+            ]
+          }
+        },
+        "folders": {
+          "_Custom Cores": {
+            "arc_id": "release",
+            "tags": [
+              0,
+              1,
+              2
+            ]
+          },
+          "_Custom Cores/Cores": {
+            "arc_id": "release",
+            "tags": [
+              0,
+              1,
+              2
+            ]
+          }
+        }
+      }
+    }
+  },
+  "db_id": "thekoalakoa/Paprium_MiSTer",
+  "db_url": "https://raw.githubusercontent.com/OWNER/paprium-koala-db/main/dist/db.json",
+  "files": {
+    "_Custom Cores/Paprium.mgl": {
+      "hash": "ec3fb8dc3bc1b971206a4d6103071687",
+      "overwrite": true,
+      "size": 277,
+      "tags": [
+        0,
+        1,
+        2
+      ],
+      "url": "https://raw.githubusercontent.com/OWNER/paprium-koala-db/main/Paprium.mgl"
+    }
+  },
+  "folders": {
+    "_Custom Cores": {
+      "tags": [
+        0,
+        1,
+        2
+      ]
+    },
+    "games": {
+      "tags": [
+        0,
+        1,
+        2
+      ]
+    },
+    "games/Paprium": {
+      "tags": [
+        0,
+        1,
+        2
+      ]
+    },
+    "games/Paprium/Paprium": {
+      "tags": [
+        0,
+        1,
+        2
+      ]
+    }
+  },
+  "tag_dictionary": {
+    "console": 0,
+    "consolecores": 0,
+    "genesis": 1,
+    "megadrive": 1,
+    "paprium": 2
+  },
+  "timestamp": 1792665574,
+  "v": 1
+}
