@@ -26,9 +26,8 @@ UPSTREAM = "thekoalakoa/Paprium_MiSTer"
 RBF_DEST = "_Custom Cores/Cores/Paprium.rbf"
 MGL_DEST = "_Custom Cores/Paprium.mgl"
 RBF_IN_ZIP = "_Console/Paprium.rbf"
-MGL_IN_ZIP = "_Console/Paprium.mgl"
-GAME_FOLDER = "games/Paprium/Paprium"
-ASSET_NAME = re.compile(r"Paprium_MiSTer_.+\.zip$", re.IGNORECASE)
+GAME_FOLDER = "games/Paprium"
+ASSET_NAME = re.compile(r"Paprium_MiSTer_.+\.zip$")
 USER_AGENT = "paprium-koala-db"
 TAG_DICTIONARY = {
     "console": 0,
@@ -77,41 +76,22 @@ def parent_folders(paths: list[str]) -> list[str]:
     return sorted(found)
 
 
-def zip_members(data: bytes) -> list[zipfile.ZipInfo]:
-    with zipfile.ZipFile(io.BytesIO(data)) as archive:
-        return [info for info in archive.infolist() if not info.is_dir()]
-
-
 def member_path(info: zipfile.ZipInfo) -> str:
     return info.filename.replace("\\", "/")
 
 
-def choose_release_zip(assets: list[dict[str, Any]], fetch: Callable[[str], bytes]) -> tuple[str, bytes, str]:
-    candidates: list[tuple[str, bytes, str]] = []
-    rejected: list[str] = []
+def choose_release_zip(assets: list[dict[str, Any]], fetch: Callable[[str], bytes]) -> tuple[str, bytes]:
+    matches = []
     for asset in assets:
         name = str(asset.get("name") or "")
         url = str(asset.get("browser_download_url") or "")
-        if not ASSET_NAME.fullmatch(name) or not url.startswith("https://"):
-            continue
-        data = fetch(url)
-        try:
-            paths = [member_path(info) for info in zip_members(data)]
-        except zipfile.BadZipFile as exc:
-            rejected.append(f"{name}: {exc}")
-            continue
-        matches = [path for path in paths if path == RBF_IN_ZIP or path.endswith("/" + RBF_IN_ZIP)]
-        if len(matches) != 1 or not any(path == MGL_IN_ZIP or path.endswith("/" + MGL_IN_ZIP) for path in paths):
-            rejected.append(f"{name}: missing {RBF_IN_ZIP}")
-            continue
-        candidates.append((url, data, matches[0]))
+        if ASSET_NAME.fullmatch(name) and url.startswith("https://"):
+            matches.append(url)
 
-    if len(candidates) == 1:
-        return candidates[0]
-    if not candidates:
-        detail = "; ".join(rejected) or "no Paprium_MiSTer zip"
-        raise RuntimeError(f"Latest release has no usable core zip: {detail}")
-    raise RuntimeError("Latest release has more than one Paprium core zip")
+    if len(matches) != 1:
+        raise RuntimeError("Latest release must contain one Paprium_MiSTer_*.zip")
+    url = matches[0]
+    return url, fetch(url)
 
 
 def read_member(archive_data: bytes, path: str) -> bytes:
@@ -178,7 +158,6 @@ def build_database(
                             "arc_id": "release",
                             "hash": md5(rbf_data),
                             "overwrite": True,
-                            "reboot": True,
                             "size": len(rbf_data),
                             "tags": TAGS,
                         }
@@ -242,14 +221,14 @@ def main() -> int:
     assets = release.get("assets") or []
     if not isinstance(assets, list):
         raise RuntimeError("Release assets are missing")
-    archive_url, archive_data, rbf_path = choose_release_zip(assets, http_get)
+    archive_url, archive_data = choose_release_zip(assets, http_get)
     database = build_database(
         repository=repository,
         tag=str(release.get("tag_name") or "latest"),
         archive_url=archive_url,
         archive_data=archive_data,
-        rbf_path=rbf_path,
-        rbf_data=read_member(archive_data, rbf_path),
+        rbf_path=RBF_IN_ZIP,
+        rbf_data=read_member(archive_data, RBF_IN_ZIP),
         mgl_data=launcher_bytes(),
         timestamp=int(time.time()),
     )

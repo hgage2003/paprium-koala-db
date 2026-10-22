@@ -7,7 +7,7 @@ _Custom Cores/Paprium.mgl
 _Custom Cores/Cores/Paprium.rbf
 ```
 
-`Paprium.md` and `paprium.pcm` stay yours, in `games/Paprium/Paprium/`. The `cpu-mate-brain` zip is not installed.
+`Paprium.md` and `paprium.pcm` stay yours, in `games/Paprium/`. The `cpu-mate-brain` zip is not installed.
 
 This is a separate database from Update All's Paprium MegaDrive entry (`MultiDatabases/paprium`), which continues to install Pezz82's core.
 

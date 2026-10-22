@@ -16,28 +16,21 @@ def zip_bytes(files: dict[str, bytes]) -> bytes:
 
 
 class ChooseReleaseZipTest(unittest.TestCase):
-    def test_skips_brain_zip_and_selects_core_zip(self) -> None:
-        brain = zip_bytes({"cpu-mate-brain/brain.bin": b"brain"})
-        core = zip_bytes(
-            {
-                "_Console/Paprium.rbf": b"core",
-                "_Console/Paprium.mgl": b"<mistergamedescription/>",
-            }
-        )
+    def test_selects_paprium_zip_by_name(self) -> None:
+        core = zip_bytes({"_Console/Paprium.rbf": b"core"})
         assets = [
             {"name": "cpu-mate-brain_0.2.6.zip", "browser_download_url": "https://example.com/brain.zip"},
             {"name": "Paprium_MiSTer_0.2.6.zip", "browser_download_url": "https://example.com/core.zip"},
         ]
-        blobs = {
-            "https://example.com/brain.zip": brain,
-            "https://example.com/core.zip": core,
-        }
 
-        url, data, rbf_path = generate_db.choose_release_zip(assets, blobs.get)
+        def fetch(url: str) -> bytes:
+            self.assertEqual("https://example.com/core.zip", url)
+            return core
+
+        url, data = generate_db.choose_release_zip(assets, fetch)
 
         self.assertEqual("https://example.com/core.zip", url)
         self.assertEqual(core, data)
-        self.assertEqual("_Console/Paprium.rbf", rbf_path)
 
     def test_database_installs_under_custom_cores(self) -> None:
         core = zip_bytes(
@@ -64,9 +57,10 @@ class ChooseReleaseZipTest(unittest.TestCase):
         installed = database["archives"]["release"]["summary_inline"]["files"]
         self.assertIn("_Custom Cores/Cores/Paprium.rbf", installed)
         self.assertEqual("_Console/Paprium.rbf", installed["_Custom Cores/Cores/Paprium.rbf"]["arc_at"])
-        self.assertTrue(installed["_Custom Cores/Cores/Paprium.rbf"]["reboot"])
+        self.assertNotIn("reboot", installed["_Custom Cores/Cores/Paprium.rbf"])
         self.assertIn("_Custom Cores/Paprium.mgl", database["files"])
-        self.assertIn("games/Paprium/Paprium", database["folders"])
+        self.assertIn("games/Paprium", database["folders"])
+        self.assertNotIn("games/Paprium/Paprium", database["folders"])
         self.assertNotIn("_Console/Paprium.mgl", json.dumps(database))
 
 
