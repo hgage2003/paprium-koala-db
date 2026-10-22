@@ -47,7 +47,7 @@
     }
   },
   "db_id": "thekoalakoa/Paprium_MiSTer",
-  "db_url": "https://raw.githubusercontent.com/OWNER/paprium-koala-db/main/dist/db.json",
+  "db_url": "https://raw.githubusercontent.com/hgage2003/paprium-koala-db/main/dist/db.json",
   "files": {
     "_Custom Cores/Paprium.mgl": {
       "hash": "ec3fb8dc3bc1b971206a4d6103071687",
@@ -58,7 +58,7 @@
         1,
         2
       ],
-      "url": "https://raw.githubusercontent.com/OWNER/paprium-koala-db/main/Paprium.mgl"
+      "url": "https://raw.githubusercontent.com/hgage2003/paprium-koala-db/main/Paprium.mgl"
     }
   },
   "folders": {
@@ -98,6 +98,6 @@
     "megadrive": 1,
     "paprium": 2
   },
-  "timestamp": 1792665574,
+  "timestamp": 1792665921,
   "v": 1
 }
