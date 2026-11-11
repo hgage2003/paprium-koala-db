@@ -2,11 +2,11 @@
   "archives": {
     "release": {
       "archive_file": {
-        "hash": "ea3396b39d3ca571516fbf9227b99d05",
-        "size": 1929372,
-        "url": "https://github.com/thekoalakoa/Paprium_MiSTer/releases/download/0.2.6/Paprium_MiSTer_0.2.6.zip"
+        "hash": "9e59857b77f00c1b4b3eb7fb6a3a3fd2",
+        "size": 1836591,
+        "url": "https://github.com/thekoalakoa/Paprium_MiSTer/releases/download/v0.3.0/Paprium_MiSTer_0.3.0.zip"
       },
-      "description": "Installing Paprium 0.2.6",
+      "description": "Installing Paprium v0.3.0",
       "extract": "selective",
       "format": "zip",
       "summary_inline": {
@@ -14,9 +14,9 @@
           "_Custom Cores/Cores/Paprium.rbf": {
             "arc_at": "_Console/Paprium.rbf",
             "arc_id": "release",
-            "hash": "86c1447eae06ae154a804d75ff0892b7",
+            "hash": "d1b2f73f029f8cf753700327d7b0ffb1",
             "overwrite": true,
-            "size": 3912644,
+            "size": 4179336,
             "tags": [
               0,
               1,
@@ -90,6 +90,6 @@
     "megadrive": 1,
     "paprium": 2
   },
-  "timestamp": 1792668159,
+  "timestamp": 1794407264,
   "v": 1
 }
